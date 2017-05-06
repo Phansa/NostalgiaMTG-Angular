@@ -21,5 +21,5 @@ function doSetTimeout(image_link_in, time) {
 
 function image_swap(image_link_in)
 {
-	document.getElementById("test").src = image_link_in;
+	document.getElementById("slot1").src = image_link_in;
 }
