@@ -7,15 +7,31 @@
     	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	    <script src="javascripts/bootstrap.min.js"></script>
 	    <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
+	    <style>
+	    	input[type=text]{
+	    		width: 50px;
+	    	}
+	    </style>
 	</head>
+	<body onload="preprocess_set_codes()">
 
 	<h1> NostalgiaMTG </h1>
 	<p>
 	A Magic the Gathering Pack Opening Simulator
 	</p>
+	<form action="">
+		<input type="radio" name="options" value="insta" checked> Insta Pack Opening
+		<br/ >
+		<input type="radio" name="options" value="insta"> Delayed Pack Opening
+		<br/ >
+	</form>
+	<br />
+	Set Code(3 letters): <input type="text" id="SetName" value="AKH" style{
+	width: 100px;}>
+	<br/ >
 
 	<!-- Create a div dynamically with pack info -->
-	<button onclick="open_pack()"> Open Amonkhet Pack </button>
+	<button onclick="open_pack()"> Open Pack </button>
 	<br />
 	<img src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=425901&type=card" id="slot1"> </img>
 	<img src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=417683&type=card" id="slot2"> </img>

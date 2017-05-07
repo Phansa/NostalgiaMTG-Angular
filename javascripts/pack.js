@@ -2,7 +2,7 @@
 //http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=425901&type=card
 var preloaded_sets = new Map();
 //var preloaded_sets = [];
-
+var valid_set_codes = new Set();
 function loop()
 {
 	//Loops through all cards in the JSON file for the set Amonkhet and displays their image
@@ -16,12 +16,18 @@ function loop()
 		timeout += 1000;
 	}
 }
-function open_pack()
+function preprocess_set_codes()
+{
+	for(var set in AllSets)
+	{
+		//console.log(AllSets[set].code);
+		valid_set_codes.add(AllSets[set].code.toString());
+	}
+}
+function process_pack(set_name)
 {
 	var PackContents = new Set();
 	var urls = [];
-	//Specify Set Name
-	var set_name = "AKH";
 	for(var set in AllSets)
 	{
 		if(AllSets[set].code == set_name)
@@ -121,7 +127,32 @@ function open_pack()
 		var name = "slot" + (urls.length - i).toString();
 		document.getElementById(name).src = urls[i];
 	}
-
+}
+function open_pack()
+{
+	//Specify Set Name and check if valid
+	var set_name = document.getElementById("SetName").value;
+	console.log(set_name);
+	if(valid_set_codes.has(set_name))
+	{
+		if(document.getElementsByName("options")[1].checked)
+		{
+			for(i = 0; i < 15; ++i)
+			{
+				var name = "slot" + (15 - i).toString();
+				document.getElementById(name).src = "images/MTG Card Back.jpg";
+			}
+			setTimeout(function(){process_pack(set_name);}, 500);
+		}
+		else
+		{
+			process_pack(set_name);
+		}
+	}
+	else
+	{
+		alert("Invalid Set Code Detected!");
+	}
 }
 function doSetTimeout(image_link_in, time) {
 	setTimeout(function(){image_swap(image_link_in);}, time);
