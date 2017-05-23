@@ -1,0 +1,130 @@
+import json
+import urllib.request as ur
+import os
+if __name__ == "__main__":
+    #These are sets that are promos / aren't standard booster packs
+    unsupported_sets = set()
+    unsupported_sets.add("CEI")
+    unsupported_sets.add("CED")
+    unsupported_sets.add("pMEI")
+    unsupported_sets.add("pDRC")
+    unsupported_sets.add("pLGM")
+    unsupported_sets.add("RQS")
+    unsupported_sets.add("pARL")
+    unsupported_sets.add("pCEL")
+    unsupported_sets.add("MGB")
+    unsupported_sets.add("ITP")
+    unsupported_sets.add("pPOD")
+    unsupported_sets.add("VAN")
+    unsupported_sets.add("pPRE")
+    unsupported_sets.add("pJGP")
+    unsupported_sets.add("pALP")
+    unsupported_sets.add("pGRU")
+    unsupported_sets.add("pWOR")
+    unsupported_sets.add("pWOS");
+    unsupported_sets.add("BRB")
+    unsupported_sets.add("pSUS")
+    unsupported_sets.add("pFNM")
+    unsupported_sets.add("pELP")
+    unsupported_sets.add("S00")
+    unsupported_sets.add("BTD")
+    unsupported_sets.add("pMPR")
+    unsupported_sets.add("DKM")
+    unsupported_sets.add("pREL")
+    unsupported_sets.add("p2HG")
+    unsupported_sets.add("ATH")
+    unsupported_sets.add("pGTW")
+    unsupported_sets.add("pCMP")
+    unsupported_sets.add("CST")
+    unsupported_sets.add("pHHO")
+    unsupported_sets.add("pPRO")
+    unsupported_sets.add("pGPX")
+    unsupported_sets.add("pMGD")
+    unsupported_sets.add("EVG")
+    unsupported_sets.add("pLPA")
+    unsupported_sets.add("p15A")
+    unsupported_sets.add("pSUM")
+    unsupported_sets.add("DRB")
+    unsupported_sets.add("pWPN")
+    unsupported_sets.add("DD2")
+    unsupported_sets.add("DDC")
+    unsupported_sets.add("DDD")
+    unsupported_sets.add("DDE")
+    unsupported_sets.add("DDF")
+    unsupported_sets.add("DDH")
+    unsupported_sets.add("DDI")
+    unsupported_sets.add("DDJ")
+    unsupported_sets.add("DDK")
+    unsupported_sets.add("DDL")
+    unsupported_sets.add("DDM")
+    unsupported_sets.add("DDN")
+    unsupported_sets.add("DDO")
+    unsupported_sets.add("DDP")
+    unsupported_sets.add("DDQ")
+    unsupported_sets.add("DDR")
+    unsupported_sets.add("DDS")
+    unsupported_sets.add("V09")
+    unsupported_sets.add("V10")
+    unsupported_sets.add("V11")
+    unsupported_sets.add("V12")
+    unsupported_sets.add("V13")
+    unsupported_sets.add("V14")
+    unsupported_sets.add("V15")
+    unsupported_sets.add("V16")
+    unsupported_sets.add("H09")
+    unsupported_sets.add("DPA")
+    unsupported_sets.add("ARC")
+    unsupported_sets.add("PD2")
+    unsupported_sets.add("PD3")
+    unsupported_sets.add("MED")
+    unsupported_sets.add("ME2")
+    unsupported_sets.add("ME3")
+    unsupported_sets.add("ME4")
+    unsupported_sets.add("VMA")
+    unsupported_sets.add("TPR")
+    unsupported_sets.add("DDG")
+    unsupported_sets.add("CMD")
+    unsupported_sets.add("PC2")
+    unsupported_sets.add("CM1")
+    unsupported_sets.add("pWCQ")
+    unsupported_sets.add("C13")
+    unsupported_sets.add("C14")
+    unsupported_sets.add("C15")
+    unsupported_sets.add("C16")
+    unsupported_sets.add("MD1")
+    unsupported_sets.add("CPK")
+    unsupported_sets.add("DD3_DVD")
+    unsupported_sets.add("DD3_EVG")
+    unsupported_sets.add("DD3_GVL")
+    unsupported_sets.add("DD3_JVC")
+    unsupported_sets.add("FRF_UGIN")
+    unsupported_sets.add("W16")
+    unsupported_sets.add("PCA")
+
+    #Taken from http://stackabuse.com/reading-and-writing-json-to-a-file-in-python/
+    with open("AllSets.json", encoding="utf8") as json_file:
+        data = json.load(json_file)
+        for set_object in data:
+            set_name = data[set_object]['code']
+            print("Processing set " + data[set_object]['code'])
+            if(set_name in unsupported_sets):
+                print("Unsupported set...skipping")
+                continue
+            #On Windows CON is not a valid folder name so this is a workaround
+            if(set_name == "CON"):
+                set_name = "CON_"
+            if(not(os.path.isdir("../images/" + set_name))):
+                os.makedirs("../images/" + set_name)
+            for card_name in data[set_object]['cards']:
+                #If the image doesn't already exist create it otherwise skip this step.
+                #When sets update it will not attempt to rewrite old card images
+                if(not(os.path.isfile("../images/" + set_name + "/" + str(card_name['imageName']) + ".jpg"))):
+                    image_link = ur.urlopen("http://gatherer.wizards.com/Handlers" +
+                    "/Image.ashx?multiverseid=" + 
+                    str(card_name['multiverseid']) + "&type=card")
+                    out_path = open("../images/" + set_name + "/" + str(card_name['imageName']) + ".jpg",
+                                        "wb")
+                    out_path.write(image_link.read())
+                    out_path.close()
+
+    print("Processed all sets!")
