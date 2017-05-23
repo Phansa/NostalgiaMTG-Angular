@@ -6,6 +6,8 @@
     	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	    <script src="javascripts/bootstrap.min.js"></script>
 	    <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
+	    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
 	    <style>
 	    	input[type=text]{
 	    		width: 50px;
@@ -19,16 +21,84 @@
 	<p>
 	A Magic the Gathering Pack Opening Simulator
 	</p>
-	<form action="">
+	<form name="openingStyle">
+		<label>
 		<input type="radio" name="options" value="insta" checked> Insta Pack Opening
-		<br/ >
+		</label>
+		<label>
 		<input type="radio" name="options" value="insta"> Delayed Pack Opening
-		<br/ >
+		</label>
 	</form>
 	<br />
-	Set Code(3 letters): <input type="text" id="SetName" value="AKH" style{
-	width: 100px;}>
-	<br/ >
+	<div ng-app="setSelector" ng-controller="myCtrl">
+		<label>
+			Set Name:	
+		</label>
+  		<input type="text" required ng-trim="false" id="SetName" ng-model="set_name.code">
+  		<br />
+  		<br />
+		<label> Select a set </label>
+		<select ng-init="set_name = setnames[0]" ng-model="set_name" ng-options="set_name as set_name.name for set_name in setnames">
+		</select>
+	</div>
+
+	<script>
+	var app = angular.module('setSelector', []);
+	app.controller('myCtrl', function($scope) {
+	    $scope.setnames = 
+	    [
+	    {
+	    	"name" : "Amonkhet",
+	    	"code" : "AKH",
+	    },
+	    {
+	    	"name" : "Aether Revolt",
+	    	"code" : "AER",
+	    },
+	    {
+	    	"name" : "Kaladesh",
+	    	"code" : "KLD",
+	    },
+	    {
+	    	"name" : "Eldritch Moon",
+	    	"code" : "EMN",
+	    },
+	    {
+	    	"name" : "Shadows over Innistrad",
+	    	"code" : "SOI",
+	    },
+	    {
+	    	"name" : "Oath of the Gatewatch",
+	    	"code" : "OGW",
+	    },
+	    {
+	    	"name" : "Battle for Zendikar",
+	    	"code" : "BFZ",
+	    },
+	    {
+	    	"name" : "Dragons of Tarkir",
+	    	"code" : "DTK",
+	    },
+	    {
+	    	"name" : "Fate Reforged",
+	    	"code" : "FRF",
+	    },
+	    {
+	    	"name" : "Khans of Tarkir",
+	    	"code" : "KTK",
+	    },
+	    {
+	    	"name" : "Innistrad",
+	    	"code" : "ISD",
+	    },
+	    {
+	    	"name" : "Scars of Mirrodin",
+	    	"code" : "SOM",
+	    }
+	    ];
+	});
+	</script>
+	<br />
 
 	<!-- Create a div dynamically with pack info -->
 	<button onclick="open_pack()"> Open Pack </button>
