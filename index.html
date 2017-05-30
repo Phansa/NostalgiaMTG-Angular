@@ -42,7 +42,8 @@
 		<select ng-init="set_name = setnames[0]" ng-model="set_name" ng-options="set_name as set_name.name for set_name in setnames">
 		</select>
 	</div>
-
+	<!--<img src="http://i.tcgplayer.com/127173_200w.jpg"> </img>
+	<br /> -->
 	<script>
 	var app = angular.module('setSelector', []);
 	app.controller('myCtrl', function($scope) {
@@ -77,6 +78,14 @@
 	    	"code" : "BFZ",
 	    },
 	    {
+	    	"name" : "Magic Origins",
+	    	"code" : "ORI",
+	    },
+	    {
+	    	"name" : "Modern Masters 2",
+	    	"code" : "MM2",
+	    },
+	    {
 	    	"name" : "Dragons of Tarkir",
 	    	"code" : "DTK",
 	    },
@@ -89,6 +98,30 @@
 	    	"code" : "KTK",
 	    },
 	    {
+	    	"name" : "Magic 2015",
+	    	"code" : "M15",
+	    },
+	    {
+	    	"name" : "Conspiracy",
+	    	"code" : "CNS",
+	    },
+	    {
+	    	"name" : "Journey into Nyx",
+	    	"code" : "JOU",
+	    },
+	    {
+	    	"name" : "Born of the Gods",
+	    	"code" : "BNG",
+	    },
+	    {
+	    	"name" : "Theros",
+	    	"code" : "THS",
+	    },
+	    {
+	    	"name" : "Magic 2014",
+	    	"code" : "M14",
+	    },
+	    {
 	    	"name" : "Innistrad",
 	    	"code" : "ISD",
 	    },
@@ -99,10 +132,8 @@
 	    ];
 	});
 	</script>
-	<br />
-
 	<!-- Create a div dynamically with pack info -->
-	<button onclick="open_pack()"> Open Pack </button>
+	<button onclick="open_pack()""> Open Pack </button>
 	<br />
 	<img src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=425901&type=card" id="slot1"> </img>
 	<img src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=417683&type=card" id="slot2"> </img>
