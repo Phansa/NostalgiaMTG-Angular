@@ -131,10 +131,12 @@ function preprocess_set_codes()
 		}
 	}
 }
+var urls = [];
+
 function process_pack(set_name)
 {
 	var PackContents = new Set();
-	var urls = [];
+	urls = [];
 	for(var set in AllSets)
 	{
 		if(AllSets[set].code == set_name)
@@ -227,10 +229,21 @@ function process_pack(set_name)
 			break;
 		}
 	}
-	for(i = 0; i < urls.length; ++i)
+	if(!document.getElementsByName("options")[2].checked)
 	{
-		var name = "slot" + (urls.length - i).toString();
-		document.getElementById(name).src = urls[i];
+		for(i = 0; i < urls.length; ++i)
+		{
+			var name = "slot" + (urls.length - i).toString();
+			document.getElementById(name).src = urls[i];
+		}
+	}
+}
+function process_click(index)
+{
+	if(document.getElementsByName("options")[2].checked)
+	{
+		var name = "slot" + (index).toString();
+		document.getElementById(name).src = urls[urls.length - index];
 	}
 }
 function open_pack()
@@ -239,14 +252,21 @@ function open_pack()
 	var set_name = document.getElementById("SetName").value;
 	if(valid_set_codes.has(set_name))
 	{
-		if(document.getElementsByName("options")[1].checked)
+		if(!document.getElementsByName("options")[0].checked)
 		{
 			for(i = 0; i < 15; ++i)
 			{
 				var name = "slot" + (15 - i).toString();
 				document.getElementById(name).src = "images/MTG Card Back.jpg";
 			}
-			setTimeout(function(){process_pack(set_name);}, 500);
+			if(document.getElementsByName("options")[1].checked)
+			{
+				setTimeout(function(){process_pack(set_name);}, 500);
+			}
+			else
+			{
+				process_pack(set_name);
+			}
 		}
 		else
 		{

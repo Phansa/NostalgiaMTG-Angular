@@ -13,6 +13,8 @@
 	    	input[type=text]{
 	    		width: 50px;
 	    	}
+	    	img { cursor: pointer; }
+
 	    </style>
 	    <title> Nostalgia MTG </title>
 	</head>
@@ -24,10 +26,13 @@
 	</p>
 	<form name="openingStyle">
 		<label>
-		<input type="radio" name="options" value="insta" checked> Insta Pack Opening
+			<input type="radio" name="options" value="insta" checked> Insta Pack Opening
 		</label>
 		<label>
-		<input type="radio" name="options" value="insta"> Delayed Pack Opening
+			<input type="radio" name="options" value="delayed"> Delayed Pack Opening
+		</label>
+		<label>
+			<input type="radio" name="options" value="manual"> Manual Pack Opening
 		</label>
 	</form>
 	<br />
@@ -39,7 +44,8 @@
   		<br />
   		<br />
 		<label> Select a set </label>
-		<select ng-init="set_name = setnames[0]" ng-model="set_name" ng-options="set_name as set_name.name for set_name in setnames">
+		<select ng-init="set_name = setnames[0]" ng-model="set_name" ng-options="set_name 
+		as set_name.name for set_name in setnames">
 		</select>
 	</div>
 	<!--<img src="http://i.tcgplayer.com/127173_200w.jpg"> </img>
@@ -135,21 +141,36 @@
 	<!-- Create a div dynamically with pack info -->
 	<button onclick="open_pack()""> Open Pack </button>
 	<br />
-	<img src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=425901&type=card" id="slot1"> </img>
-	<img src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=417683&type=card" id="slot2"> </img>
-	<img src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=383328&type=card" id="slot3"> </img>
-	<img src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=413599&type=card" id="slot4"> </img>
-	<img src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=383180&type=card" id="slot5"> </img>
-	<img src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=376461&type=card" id="slot6"> </img>
-	<img src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=429871&type=card" id="slot7"> </img>
-	<img src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=429862&type=card" id="slot8"> </img>
-	<img src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=429880&type=card" id="slot9"> </img>
-	<img src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=429877&type=card" id="slot10"> </img>
-	<img src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=429876&type=card" id="slot11"> </img>
-	<img src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=429863&type=card" id="slot12"> </img>
-	<img src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=425888&type=card" id="slot13"> </img>
-	<img src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=239961&type=card" id="slot14"> </img>
-	<img src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=425809&type=card" id="slot15"> </img>
+	<img src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=425901&type=card" 
+	onclick="process_click(1)" id="slot1"> </img>
+	<img src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=417683&type=card" 
+	onclick="process_click(2)" id="slot2"> </img>
+	<img src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=383328&type=card" 
+	onclick="process_click(3)" id="slot3"> </img>
+	<img src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=413599&type=card" 
+	onclick="process_click(4)" id="slot4"> </img>
+	<img src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=383180&type=card" 
+	onclick="process_click(5)" id="slot5"> </img>
+	<img src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=376461&type=card" 
+	onclick="process_click(6)" id="slot6"> </img>
+	<img src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=429871&type=card" 
+	onclick="process_click(7)" id="slot7"> </img>
+	<img src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=429862&type=card" 
+	onclick="process_click(8)" id="slot8"> </img>
+	<img src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=429880&type=card" 
+	onclick="process_click(9)" id="slot9"> </img>
+	<img src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=429877&type=card" 
+	onclick="process_click(10)" id="slot10"> </img>
+	<img src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=429876&type=card" 
+	onclick="process_click(11)" id="slot11"> </img>
+	<img src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=429863&type=card" 
+	onclick="process_click(12)" id="slot12"> </img>
+	<img src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=425888&type=card" 
+	onclick="process_click(13)" id="slot13"> </img>
+	<img src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=239961&type=card" 
+	onclick="process_click(14)" id="slot14"> </img>
+	<img src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=425809&type=card" 
+	onclick="process_click(15)" id="slot15"> </img>
 	<br />
 	<br />
 	<button onclick="loop()"> Loop Through Specified Set </button>
